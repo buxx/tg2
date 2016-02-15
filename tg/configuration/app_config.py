@@ -53,6 +53,10 @@ class DispatchingConfigWrapper(DictMixin):
         """Initialize the object by passing in config to be wrapped"""
         self.__dict__['config_proxy'] = dict_to_wrap
 
+        with open('/tmp/debug.txt', 'a') as f:
+            print('config init: tg.app_globals is: %s' % dict_to_wrap.get('tg.app_globals', None), file=f)
+
+
     def __getitem__(self, key):
         return self.config_proxy.current_conf()[key]
 
