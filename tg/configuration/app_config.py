@@ -57,6 +57,14 @@ class DispatchingConfigWrapper(DictMixin):
         return self.config_proxy.current_conf()[key]
 
     def __setitem__(self, key, value):
+
+        if key == 'tg.app_globals' and value is None:
+            with open('/tmp/debug.txt', 'a') as f:
+                print('tg.app_globals set to None', file=f)
+        if key == 'tg.app_globals':
+            with open('/tmp/debug.txt', 'a') as f:
+                print('tg.app_globals set to %s' % value, file=f)
+
         self.config_proxy.current_conf()[key] = value
 
     def __getattr__(self, key):
@@ -77,6 +85,14 @@ class DispatchingConfigWrapper(DictMixin):
                 return get_partial_dict(key, self.config_proxy.current_conf(), Bunch)
 
     def __setattr__(self, key, value):
+
+        if key == 'tg.app_globals' and value is None:
+            with open('/tmp/debug.txt', 'a') as f:
+                print('tg.app_globals set to None', file=f)
+        if key == 'tg.app_globals':
+            with open('/tmp/debug.txt', 'a') as f:
+                print('tg.app_globals set to %s' % value, file=f)
+
         self.config_proxy.current_conf()[key] = value
 
     def __delattr__(self, name):
